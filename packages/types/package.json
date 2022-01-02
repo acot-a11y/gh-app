@@ -1,0 +1,44 @@
+{
+  "name": "@acot/gh-app-types",
+  "version": "0.0.1",
+  "description": "acot's gh-app underlying type declarations.",
+  "keywords": [
+    "acot"
+  ],
+  "homepage": "https://github.com/acot-a11y/gh-app/tree/main/packages/types",
+  "bugs": {
+    "url": "https://github.com/acot-a11y/gh-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acot-a11y/gh-app.git",
+    "directory": "packages/types"
+  },
+  "license": "MIT",
+  "author": "wadackel <wadackel@gmail.com>",
+  "main": "lib/index.js",
+  "types": "lib/index.d.js",
+  "files": [
+    "lib",
+    "!**/__mocks__",
+    "!**/__tests__"
+  ],
+  "scripts": {
+    "dev": "yarn build:ts --watch",
+    "build": "run-s \"build:*\"",
+    "build:schema": "ts-node scripts/build-schema.ts",
+    "build:ts": "tsc"
+  },
+  "devDependencies": {
+    "@acot/tsconfig": "0.1.0",
+    "@acot/types": "0.0.13",
+    "@types/node": "16.11.17",
+    "npm-run-all": "4.1.5",
+    "ts-node": "10.4.0",
+    "typescript": "4.5.4",
+    "typescript-json-schema": "0.52.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

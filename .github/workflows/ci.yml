@@ -1,0 +1,165 @@
+name: CI
+
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  GCLOUD_VERSION: 351.0.0
+  IMAGE: gh-app-api
+  GH_APP_REDIRECT_URI: 'https://gh-app.acot.dev/auth/callback'
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version-file: '.node-version'
+          cache: 'yarn'
+
+      - run: yarn --immutable
+
+      - name: 'Setup web config'
+        working-directory: packages/web
+        run: |
+          echo "VITE_API_URL=https://gh-app-api.acot.dev/" >> .env
+          echo "VITE_GH_APP_CLIENT_ID=${{ secrets.GH_APP_CLIENT_ID }}" >> .env
+          echo "VITE_GH_APP_REDIRECT_URI=${{ env.GH_APP_REDIRECT_URI }}" >> .env
+
+      - run: yarn build
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build
+          retention-days: 1
+          path: |
+            packages/web/dist
+            */*/lib
+            !node_modules
+
+  test:
+    runs-on: ubuntu-20.04
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version-file: '.node-version'
+          cache: 'yarn'
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: build
+
+      - run: yarn --immutable
+
+      - run: yarn test
+
+  lint:
+    runs-on: ubuntu-20.04
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version-file: '.node-version'
+          cache: 'yarn'
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: build
+
+      - run: yarn --immutable
+
+      - run: yarn lint
+
+      - run: git diff --exit-code || exit 1
+
+  pass:
+    runs-on: ubuntu-20.04
+    needs: [build, test, lint]
+    steps:
+      - run: exit 0
+
+  deploy_api:
+    runs-on: ubuntu-20.04
+    needs: [pass]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: google-github-actions/setup-gcloud@v0.3.0
+        with:
+          version: ${{ env.GCLOUD_VERSION }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          export_default_credentials: true
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ github.ref }}-${{ github.sha }}
+          restore-keys: |
+            ${{ github.ref }}-${{ github.sha }}
+            ${{ github.ref }}
+            refs/head/main
+
+      - name: Configure gcloud
+        run: gcloud auth configure-docker
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Publish Docker image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          builder: ${{ steps.buildx.outputs.name }}
+          tags: ${{ secrets.GCP_HOSTNAME }}/${{ secrets.GCP_PROJECT_ID }}/${{ env.IMAGE }}:latest
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+
+      - name: Deploy Docker image to Cloud Run
+        run: |
+          gcloud run deploy ${IMAGE} \
+            --image ${{ secrets.GCP_HOSTNAME }}/${{ secrets.GCP_PROJECT_ID }}/${IMAGE}:latest \
+            --region ${{ secrets.GCP_REGION }} \
+            --max-instances 10 \
+            --service-account ${{ secrets.GCP_CLOUD_RUN_SERVICE_ACCOUNT }} \
+            --set-env-vars "GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }}" \
+            --set-env-vars "APP_TOKEN_KEY=${{ secrets.APP_TOKEN_KEY }}" \
+            --set-env-vars "GH_APP_ID=${{ secrets.GH_APP_ID }}" \
+            --set-env-vars "GH_APP_CLIENT_ID=${{ secrets.GH_APP_CLIENT_ID }}" \
+            --set-env-vars "GH_APP_CLIENT_SECRET=${{ secrets.GH_APP_CLIENT_SECRET }}" \
+            --set-env-vars "GH_APP_REDIRECT_URI=${{ env.GH_APP_REDIRECT_URI }}" \
+            --set-env-vars "GH_APP_PEM=${{ secrets.GH_APP_PEM }}" \
+            --allow-unauthenticated \
+
+  deploy_web:
+    runs-on: ubuntu-20.04
+    needs: [pass]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: google-github-actions/setup-gcloud@v0.3.0
+        with:
+          version: ${{ env.GCLOUD_VERSION }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          export_default_credentials: true
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: build
+
+      - name: Deploy
+        working-directory: packages/web
+        run: gcloud app deploy app.yaml

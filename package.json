@@ -1,0 +1,51 @@
+{
+  "name": "gh-app",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "yarn workspaces foreach -piv run dev",
+    "build": "yarn workspaces foreach -ptv run build",
+    "preview": "run-p \"preview:**\"",
+    "preview:api": "yarn workspace api start",
+    "preview:web": "yarn workspace web preview",
+    "test": "yarn workspaces foreach -piv run test",
+    "lint": "run-p \"lint:**\"",
+    "lint:prettier": "prettier --check .",
+    "lint:script": "eslint . --ext \".js,.jsx,.ts,.tsx\"",
+    "format": "run-s \"format:**\"",
+    "format:prettier": "prettier --write .",
+    "format:eslint": "yarn lint:script --fix",
+    "scaffold": "scaffdog generate",
+    "clean": "rimraf \"packages/*/lib\" \"packages/*/tsconfig.tsbuildinfo\"",
+    "storybook": "yarn workspace web storybook",
+    "release": "lerna publish from-package",
+    "release:canary": "yarn release --dist-tag canary",
+    "versionup": "lerna version",
+    "versionup:canary": "lerna version prerelease --preid canary",
+    "versionup:cancel": "git tag --points-at @ | xargs -I{} git tag --delete {} && git reset --hard @^",
+    "versionup:major": "lerna version major",
+    "versionup:minor": "lerna version minor",
+    "versionup:patch": "lerna version patch"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "5.8.1",
+    "@typescript-eslint/parser": "5.8.1",
+    "eslint": "8.6.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-import": "2.25.3",
+    "eslint-plugin-jest": "25.3.4",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "lerna": "4.0.0",
+    "npm-run-all": "4.1.5",
+    "prettier": "2.5.1",
+    "prettier-plugin-packagejson": "2.2.15",
+    "rimraf": "3.0.2",
+    "scaffdog": "1.1.0"
+  },
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  },
+  "packageManager": "yarn@3.1.1"
+}

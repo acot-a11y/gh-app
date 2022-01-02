@@ -1,0 +1,19 @@
+runtime: php73
+
+service: default
+instance_class: F1
+
+automatic_scaling:
+  max_instances: 5
+
+default_expiration: '14d'
+
+handlers:
+  - url: /(.*\.(json|js|ico|jpg|png|gif|svg|txt))$
+    static_files: dist/\1
+    upload: dist/.*\.(json|js|ico|jpg|png|gif|svg|txt)$
+
+  - url: .*
+    static_files: dist/index.html
+    upload: dist/index.html
+    expiration: '0s'

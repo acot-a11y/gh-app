@@ -1,0 +1,273 @@
+{
+  "PostPrCommentRequest": {
+    "type": "object",
+    "properties": {
+      "number": {
+        "type": "number"
+      },
+      "meta": {
+        "type": "object",
+        "properties": {
+          "core": {
+            "type": "object",
+            "properties": {
+              "version": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "version"
+            ]
+          },
+          "runner": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "version"
+            ]
+          },
+          "commit": {
+            "type": "string"
+          },
+          "origin": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "commit",
+          "core",
+          "origin",
+          "runner"
+        ]
+      },
+      "summary": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "duration": {
+                "type": "number"
+              },
+              "passCount": {
+                "type": "number"
+              },
+              "errorCount": {
+                "type": "number"
+              },
+              "warningCount": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "duration",
+              "errorCount",
+              "passCount",
+              "warningCount"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "rules": {
+                "$ref": "#/definitions/RuleResult"
+              },
+              "results": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "duration": {
+                          "type": "number"
+                        },
+                        "passCount": {
+                          "type": "number"
+                        },
+                        "errorCount": {
+                          "type": "number"
+                        },
+                        "warningCount": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "duration",
+                        "errorCount",
+                        "passCount",
+                        "warningCount"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string"
+                        },
+                        "rules": {
+                          "$ref": "#/definitions/RuleResult"
+                        },
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "process": {
+                                        "type": "number"
+                                      },
+                                      "rule": {
+                                        "type": "string"
+                                      },
+                                      "duration": {
+                                        "type": "number"
+                                      },
+                                      "message": {
+                                        "type": "string"
+                                      },
+                                      "help": {
+                                        "type": "string"
+                                      },
+                                      "selector": {
+                                        "type": "string"
+                                      },
+                                      "htmlpath": {
+                                        "type": "string"
+                                      },
+                                      "imagepath": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "duration",
+                                      "help",
+                                      "htmlpath",
+                                      "imagepath",
+                                      "message",
+                                      "process",
+                                      "rule",
+                                      "selector"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "status": {
+                                        "$ref": "#/definitions/Extract"
+                                      }
+                                    },
+                                    "required": [
+                                      "status"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "allOf": [
+                                  {
+                                    "$ref": "#/definitions/{process:number;rule:string;duration:number;help:string;message?:string;selector?:string;htmlpath?:string;imagepath?:string;}"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "status": {
+                                        "type": "string",
+                                        "enum": [
+                                          "pass"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "status"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "results",
+                        "rules",
+                        "url"
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            "required": [
+              "results",
+              "rules"
+            ]
+          }
+        ]
+      }
+    },
+    "required": [
+      "meta",
+      "number",
+      "summary"
+    ],
+    "definitions": {
+      "RuleResult": {
+        "type": "object"
+      },
+      "Extract": {
+        "enum": [
+          "error",
+          "warn"
+        ],
+        "type": "string"
+      },
+      "{process:number;rule:string;duration:number;help:string;message?:string;selector?:string;htmlpath?:string;imagepath?:string;}": {
+        "type": "object",
+        "properties": {
+          "process": {
+            "type": "number"
+          },
+          "rule": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "number"
+          },
+          "help": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "selector": {
+            "type": "string"
+          },
+          "htmlpath": {
+            "type": "string"
+          },
+          "imagepath": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "duration",
+          "help",
+          "process",
+          "rule"
+        ]
+      }
+    },
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  }
+}

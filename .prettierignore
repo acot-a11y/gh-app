@@ -1,0 +1,5 @@
+.yarn
+packages/*/lib
+packages/shared/src/schema/**/*.json
+packages/types/src/schema/**/*.json
+packages/web/dist
