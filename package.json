@@ -5,6 +5,7 @@
     "packages/*"
   ],
   "scripts": {
+    "bootstrap": "yarn && husky install",
     "dev": "yarn workspaces foreach -piv run dev",
     "build": "yarn workspaces foreach -ptv run build",
     "preview": "run-p \"preview:**\"",
@@ -27,8 +28,7 @@
     "versionup:cancel": "git tag --points-at @ | xargs -I{} git tag --delete {} && git reset --hard @^",
     "versionup:major": "lerna version major",
     "versionup:minor": "lerna version minor",
-    "versionup:patch": "lerna version patch",
-    "postinstall": "husky install"
+    "versionup:patch": "lerna version patch"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,md,yml,json}": [
