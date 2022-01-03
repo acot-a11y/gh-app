@@ -1,5 +1,5 @@
-import { Box, Flex } from '@chakra-ui/react';
-import { lazy, Suspense } from 'react';
+import { Box, Flex, useBoolean } from '@chakra-ui/react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { ErrorView } from './components/ErrorView';
@@ -52,10 +52,30 @@ const Inner: React.VFC = () => {
   );
 };
 
+const DelayedFallback: React.FC = ({ children }) => {
+  const [show, setShow] = useBoolean(false);
+
+  useEffect(() => {
+    const id = setTimeout(setShow.on, 300);
+
+    return () => {
+      clearTimeout(id);
+    };
+  }, [setShow.on]);
+
+  return <>{show && children}</>;
+};
+
 export const App: React.VFC = () => {
   return (
     <ErrorBoundary view={ErrorView}>
-      <Suspense fallback={<LoadingScreen />}>
+      <Suspense
+        fallback={
+          <DelayedFallback>
+            <LoadingScreen />
+          </DelayedFallback>
+        }
+      >
         <Inner />
       </Suspense>
     </ErrorBoundary>
