@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import type { MakeGenerics } from 'react-location';
+import { useNavigate, useSearch } from 'react-location';
 import {
   atom,
   selector,
@@ -94,7 +95,7 @@ export const useAuth = () => {
 
   const logout = useCallback(() => {
     setToken(null);
-    navigate('/login', { replace: true });
+    navigate({ to: '/login', replace: true });
   }, [navigate, setToken]);
 
   return {
@@ -121,14 +122,20 @@ const authCallbackQuery = selectorFamily<string, string | null>({
 });
 
 export const useAuthCallback = () => {
-  const location = useLocation();
+  const search = useSearch<
+    MakeGenerics<{
+      Search: {
+        code?: string;
+      };
+    }>
+  >();
+
   const navigate = useNavigate();
-  const qs = new URLSearchParams(location.search);
   const setToken = useSetRecoilState(tokenState);
-  const token = useRecoilValue(authCallbackQuery(qs.get('code')));
+  const token = useRecoilValue(authCallbackQuery(`${search.code}`));
 
   useEffect(() => {
     setToken(token);
-    navigate('/', { replace: true });
+    navigate({ to: '/', replace: true });
   }, [token, setToken, navigate]);
 };
