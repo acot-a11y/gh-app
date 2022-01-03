@@ -29,6 +29,10 @@ export type NotifyService = {
   comment: (input: NotifyCommentInput) => Promise<NotifyCommentOutput>;
 };
 
+const formatMessage = (message: string) => {
+  return message.trim().replace(/(?:\r\n|\r|\n)/g, '<br />');
+};
+
 const format = (meta: PrCommentMeta, summary: Summary) => {
   const symbols = {
     success: ':white_check_mark:',
@@ -136,7 +140,7 @@ ${getMarkdownTable({
         return acc;
       }
 
-      const body = [`${cur.message}`];
+      const body = [formatMessage(`${cur.message}`)];
 
       if (cur.selector || cur.help) {
         body.push(`<br />`);
@@ -145,7 +149,7 @@ ${getMarkdownTable({
         body.push(`<br />at \`${cur.selector}\``);
       }
       if (cur.help) {
-        body.push(`<br />see ${cur.help}`);
+        body.push(`<br />see ${formatMessage(cur.help)}`);
       }
 
       acc.push([
