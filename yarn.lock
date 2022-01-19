@@ -3147,15 +3147,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@google-cloud/firestore@npm:5.0.1":
-  version: 5.0.1
-  resolution: "@google-cloud/firestore@npm:5.0.1"
+"@google-cloud/firestore@npm:5.0.2":
+  version: 5.0.2
+  resolution: "@google-cloud/firestore@npm:5.0.2"
   dependencies:
     fast-deep-equal: ^3.1.1
     functional-red-black-tree: ^1.0.1
     google-gax: ^2.24.1
     protobufjs: ^6.8.6
-  checksum: 2a2c6272bc01bc9c850e091d2fe44b777b32162980fdb085574ca86d2c7a2014b7b5b96dc9a5593048706ea3815f9662e344a0992e577197974fe7cb1e79f6b4
+  checksum: 4b669f54a7da2287d0559435586bcf9792a3e240d1b75868a6557c4c1a7265aae335ab24d0d1458ed32320ee258c107802f9650ed24f86b0d03ff49f202ee530
   languageName: node
   linkType: hard
 
@@ -7327,7 +7327,7 @@ __metadata:
     "@acot/tsconfig": 0.1.0
     "@acot/types": 0.0.13
     "@google-cloud/datastore": 6.6.2
-    "@google-cloud/firestore": 5.0.1
+    "@google-cloud/firestore": 5.0.2
     "@octokit/rest": 18.12.0
     "@types/bunyan": 1.8.8
     "@types/bunyan-format": 0.2.4
