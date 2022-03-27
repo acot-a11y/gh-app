@@ -1,6 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
+import { createMemoryHistory, ReactLocation, Router } from 'react-location';
 import { theme } from '../src/theme';
 
 export const parameters = {
@@ -13,10 +13,14 @@ export const parameters = {
   },
 };
 
+const history = createMemoryHistory();
+const location = new ReactLocation({ history });
+const routes = [];
+
 export const decorators = [
   (story) => (
-    <MemoryRouter>
+    <Router location={location} routes={routes}>
       <ChakraProvider theme={theme}>{story()}</ChakraProvider>
-    </MemoryRouter>
+    </Router>
   ),
 ];

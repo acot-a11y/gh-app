@@ -1,9 +1,11 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { StrictMode, useEffect } from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import type { Route } from 'react-location';
+import { ReactLocation, Router } from 'react-location';
 import { RecoilRoot, useRecoilSnapshot } from 'recoil';
 import { App } from './App';
+import { GuestRoute, PrivateRoute } from './routing';
 import { theme } from './theme';
 
 /* eslint-disable */
@@ -21,16 +23,58 @@ const DebugObserver: React.VFC = () => {
 };
 /* eslint-enable */
 
+const location = new ReactLocation();
+
+const route =
+  (
+    constraint: 'guest' | 'private' | 'all',
+    fn: () => Promise<{ default: React.ComponentType }>,
+  ) =>
+  () =>
+    fn().then((mod) => {
+      switch (constraint) {
+        case 'private':
+          return (
+            <PrivateRoute>
+              <mod.default />
+            </PrivateRoute>
+          );
+        case 'guest':
+          return (
+            <GuestRoute>
+              <mod.default />
+            </GuestRoute>
+          );
+        case 'all':
+          return <mod.default />;
+      }
+    });
+
+const routes: Route<{}>[] = [
+  {
+    path: '/',
+    element: route('private', () => import('./pages/Home')),
+  },
+  {
+    path: '/login',
+    element: route('guest', () => import('./pages/Login')),
+  },
+  {
+    path: '/auth/callback',
+    element: route('all', () => import('./pages/auth/AuthCallback')),
+  },
+];
+
 render(
   <StrictMode>
     <RecoilRoot>
-      <Router>
-        {process.env.NODE_ENV !== 'production' && <DebugObserver />}
+      {process.env.NODE_ENV !== 'production' && <DebugObserver />}
 
-        <ChakraProvider theme={theme}>
+      <ChakraProvider theme={theme}>
+        <Router location={location} routes={routes}>
           <App />
-        </ChakraProvider>
-      </Router>
+        </Router>
+      </ChakraProvider>
     </RecoilRoot>
   </StrictMode>,
   document.getElementById('root'),

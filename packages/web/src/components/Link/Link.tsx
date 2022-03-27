@@ -1,8 +1,8 @@
 import type { LinkProps as ChakraLinkProps } from '@chakra-ui/react';
 import { Link as ChakraLink } from '@chakra-ui/react';
 import { forwardRef } from 'react';
-import type { LinkProps as RouterLinkProps } from 'react-router-dom';
-import { Link as RouterLink } from 'react-router-dom';
+import type { LinkProps as RouterLinkProps } from 'react-location';
+import { Link as RouterLink } from 'react-location';
 
 const EXTERNAL_LINK_REGEX = /^https?:\/\//;
 
