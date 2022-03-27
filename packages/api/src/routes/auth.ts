@@ -12,7 +12,7 @@ export const postAuthRoute: Route<{
     body: PostAuthRequestSchema,
   },
   handler: async (request, reply) => {
-    request.logger.debug({ body: request.body }, 'receive authentication code');
+    request.logger.debug('receive authentication code');
 
     const { code } = request.body;
 
