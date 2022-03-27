@@ -132,6 +132,7 @@ jobs:
             --image ${{ secrets.GCP_HOSTNAME }}/${{ secrets.GCP_PROJECT_ID }}/${IMAGE}:latest \
             --region ${{ secrets.GCP_REGION }} \
             --max-instances 10 \
+            --memory "2Gi" \
             --service-account ${{ secrets.GCP_CLOUD_RUN_SERVICE_ACCOUNT }} \
             --set-env-vars "GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }}" \
             --set-env-vars "APP_TOKEN_KEY=${{ secrets.APP_TOKEN_KEY }}" \
