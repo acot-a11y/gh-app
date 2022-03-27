@@ -15,7 +15,13 @@ export const postAppTokenRoute: Route<{
     body: PostAppTokenRequestSchema,
   },
   handler: async (request, reply) => {
-    request.logger.debug({ body: request.body }, 'receive generate app token');
+    request.logger.debug(
+      {
+        owner: request.body.owner,
+        repo: request.body.repo,
+      },
+      'receive generate app token',
+    );
 
     const { installation_id, owner, repo } = request.body;
 
