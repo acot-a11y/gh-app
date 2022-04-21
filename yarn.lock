@@ -19530,7 +19530,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-location@npm:^3.3.0":
+"react-location@npm:3.3.0":
   version: 3.3.0
   resolution: "react-location@npm:3.3.0"
   dependencies:
@@ -23477,7 +23477,7 @@ typescript@~4.4.4:
     node-fetch: 3.1.0
     react: 17.0.2
     react-dom: 17.0.2
-    react-location: ^3.3.0
+    react-location: 3.3.0
     recoil: 0.5.2
     storybook-addon-turbo-build: 1.0.1
     storybook-builder-vite: 0.1.13
