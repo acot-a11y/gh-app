@@ -130,7 +130,7 @@ ${getMarkdownTable({
       ].join(' ');
 
       lines.push(`<details>
-<summary>${result.url} - ${short}</summary>
+<summary><a href="${result.url}">${result.url}</a> - ${short}</summary>
 
 ${getMarkdownTable({
   table: {
