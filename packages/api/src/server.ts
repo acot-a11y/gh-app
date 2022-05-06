@@ -16,6 +16,7 @@ export const createServer = async (
   const server = fastify({
     logger: false,
     trustProxy: true,
+    bodyLimit: 1048576 * 15,
   });
 
   /**
