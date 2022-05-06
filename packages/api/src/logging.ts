@@ -148,10 +148,12 @@ export type Logger = {
 };
 
 export const createLogger = (trace?: TraceContext | null): Logger => {
+  const level = bunyan.DEBUG;
+
   let logger = bunyan.createLogger({
     name: 'gh-app-api',
     streams: [],
-    level: bunyan.DEBUG,
+    level,
   });
 
   switch (process.env.NODE_ENV) {
@@ -160,6 +162,7 @@ export const createLogger = (trace?: TraceContext | null): Logger => {
       logger.addStream({
         type: 'raw',
         stream: createCloudLoggingReporter() as any,
+        level,
       });
       break;
 
@@ -172,6 +175,7 @@ export const createLogger = (trace?: TraceContext | null): Logger => {
         stream: bformat({
           outputMode: 'short',
         }),
+        level,
       });
       break;
   }
