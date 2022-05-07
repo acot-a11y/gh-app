@@ -185,6 +185,8 @@ export const createNotifyService = (
     comment: async ({ token, owner, repo, number, meta, summary }) => {
       const body = format(meta, summary);
 
+      logger.debug({ body: body.slice(0, 200) }, 'formatted body');
+
       try {
         const comments = await github.getIssueCommentList({
           token,
@@ -200,6 +202,9 @@ export const createNotifyService = (
         );
 
         logger.debug({ found }, 'comments search index');
+        if (found >= 0) {
+          logger.debug({ comment: comments[found].id }, 'found comment id');
+        }
 
         const comment =
           found < 0
