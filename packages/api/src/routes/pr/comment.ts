@@ -15,7 +15,14 @@ export const postPrCommentRoute: Route<{
     body: PostPrCommentRequestSchema,
   },
   handler: async (request, reply) => {
-    request.logger.debug({ body: request.body }, 'receive PR comment');
+    request.logger.debug(
+      {
+        number: request.body.number,
+        meta: request.body.meta,
+        resultSize: request.body.summary.results.length,
+      },
+      'receive PR comment',
+    );
 
     const { number, meta, summary } = request.body;
     const { installation_id, owner, repo } = request.app!;

@@ -225,9 +225,10 @@ export const createNotifyService = (
 
         return output(true, comment);
       } catch (e) {
-        logger.error(e, 'comment failure');
+        logger.debug('comment failure');
+        logger.error(e);
         return output(false, {
-          error: e instanceof Error ? e.message : '',
+          error: e instanceof Error ? e.message : String(e),
         });
       }
     },
