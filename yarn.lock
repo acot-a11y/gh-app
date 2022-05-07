@@ -162,7 +162,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:7.17.10":
+"@babel/core@npm:7.17.10, @babel/core@npm:^7.17.10":
   version: 7.17.10
   resolution: "@babel/core@npm:7.17.10"
   dependencies:
@@ -1646,6 +1646,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/plugin-transform-react-jsx-self@npm:^7.16.7":
+  version: 7.16.7
+  resolution: "@babel/plugin-transform-react-jsx-self@npm:7.16.7"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.16.7
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: cf1e408eedf99de3e49689473f329f0a45f1d8642536398570267f564a0da785a676045f042ca6e5d026bcee271127e3b2555fd84949fb7fc87f8ba4fefec34e
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-transform-react-jsx-source@npm:^7.16.0":
   version: 7.16.5
   resolution: "@babel/plugin-transform-react-jsx-source@npm:7.16.5"
@@ -1654,6 +1665,17 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: c94653ff79f349fb3c4acadcd5280f8afeb4046455b4f4517030e9a44b40fd0ad9698d81348df64151257c144ca5fc8b236dee8fa1aff6f36cff154219262d5b
+  languageName: node
+  linkType: hard
+
+"@babel/plugin-transform-react-jsx-source@npm:^7.16.7":
+  version: 7.16.7
+  resolution: "@babel/plugin-transform-react-jsx-source@npm:7.16.7"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.16.7
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 722147fd37d8b5343ab88f611f0e05dd1e298ac981ec74797751689d4a3ed35a09af1d62dc81bf78efee922d8962aa0840a4fcf07f030434139e41012ade851d
   languageName: node
   linkType: hard
 
@@ -1684,6 +1706,21 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 07a8b2443df86bd7ef51849fc097f9c5f72205ad47c8e41462f08b49a00c16fbd96f60a9f18a9ce741d9852fa1516bb65d91fbe7437f69a2e1852a20f89261f7
+  languageName: node
+  linkType: hard
+
+"@babel/plugin-transform-react-jsx@npm:^7.17.3":
+  version: 7.17.3
+  resolution: "@babel/plugin-transform-react-jsx@npm:7.17.3"
+  dependencies:
+    "@babel/helper-annotate-as-pure": ^7.16.7
+    "@babel/helper-module-imports": ^7.16.7
+    "@babel/helper-plugin-utils": ^7.16.7
+    "@babel/plugin-syntax-jsx": ^7.16.7
+    "@babel/types": ^7.17.0
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 7e33a3fb78a3b7352b56f48211160ae60dc3654bae314ea0352bfc179d10eaac789792ccb3701172388ec4e4dbdb94952cdf3386980f3af402d99ceadd91149b
   languageName: node
   linkType: hard
 
@@ -4958,6 +4995,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/pluginutils@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "@rollup/pluginutils@npm:4.2.1"
+  dependencies:
+    estree-walker: ^2.0.1
+    picomatch: ^2.2.2
+  checksum: 6bc41f22b1a0f1efec3043899e4d3b6b1497b3dea4d94292d8f83b4cf07a1073ecbaedd562a22d11913ff7659f459677b01b09e9598a98936e746780ecc93a12
+  languageName: node
+  linkType: hard
+
 "@scaffdog/config@npm:1.1.0":
   version: 1.1.0
   resolution: "@scaffdog/config@npm:1.1.0"
@@ -7049,7 +7096,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-react@npm:1.1.3, @vitejs/plugin-react@npm:^1.0.8":
+"@vitejs/plugin-react@npm:1.3.2":
+  version: 1.3.2
+  resolution: "@vitejs/plugin-react@npm:1.3.2"
+  dependencies:
+    "@babel/core": ^7.17.10
+    "@babel/plugin-transform-react-jsx": ^7.17.3
+    "@babel/plugin-transform-react-jsx-development": ^7.16.7
+    "@babel/plugin-transform-react-jsx-self": ^7.16.7
+    "@babel/plugin-transform-react-jsx-source": ^7.16.7
+    "@rollup/pluginutils": ^4.2.1
+    react-refresh: ^0.13.0
+    resolve: ^1.22.0
+  checksum: 9e083e561145cad00bdd2bc93d56b7ec8e209a05c4a9ebce8d1891e88e74de7eda197934c716023a1642582f250e330da6269e0cd1dc2285762f628c82f32229
+  languageName: node
+  linkType: hard
+
+"@vitejs/plugin-react@npm:^1.0.8":
   version: 1.1.3
   resolution: "@vitejs/plugin-react@npm:1.1.3"
   dependencies:
@@ -19986,6 +20049,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-refresh@npm:^0.13.0":
+  version: 0.13.0
+  resolution: "react-refresh@npm:0.13.0"
+  checksum: 1cf2b87ed99e1d388aa3923078bc30cd3ce43ee86e8936944e961d3643c6e85da41ebed6a0996e8bdad75a0d2ce3b7e10638b45018231380d4a174f63a451f75
+  languageName: node
+  linkType: hard
+
 "react-remove-scroll-bar@npm:^2.1.0":
   version: 2.2.0
   resolution: "react-remove-scroll-bar@npm:2.2.0"
@@ -23893,7 +23963,7 @@ typescript@~4.4.4:
     "@types/node": 16.11.17
     "@types/react": 17.0.38
     "@types/react-dom": 17.0.11
-    "@vitejs/plugin-react": 1.1.3
+    "@vitejs/plugin-react": 1.3.2
     babel-loader: 8.2.5
     framer-motion: 4.1.17
     ky: 0.28.7
