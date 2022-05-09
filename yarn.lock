@@ -16328,10 +16328,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ky@npm:0.28.7":
-  version: 0.28.7
-  resolution: "ky@npm:0.28.7"
-  checksum: ff38c9c5a5b9c0354b9db167662cdb1fc48c91803a580807a1d18a1fccc024953cba3708e7bcbd9c7a27670c68631d4806e2c5a169ebc586e573a7c5802a6086
+"ky@npm:0.30.0":
+  version: 0.30.0
+  resolution: "ky@npm:0.30.0"
+  checksum: d6ec6461e18cd2e4abb809b0574ff704c2e17bd61248843471c2492dd9486dfeadd4d139a5a6ec194b0175f9bc7b8c634685880d1ac646553a9f440c0982e8d3
   languageName: node
   linkType: hard
 
@@ -23882,7 +23882,7 @@ typescript@~4.4.4:
     "@vitejs/plugin-react": 1.1.3
     babel-loader: 8.2.5
     framer-motion: 4.1.17
-    ky: 0.28.7
+    ky: 0.30.0
     nock: 13.2.4
     node-fetch: 3.1.0
     react: 17.0.2
