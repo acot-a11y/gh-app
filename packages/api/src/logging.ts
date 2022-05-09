@@ -1,6 +1,7 @@
 import stringify from 'safe-json-stringify';
 import bunyan from 'bunyan';
 import bformat from 'bunyan-format';
+import { RequestError } from 'got';
 import { GCP_PROJECT_ID } from './constants';
 
 export type TraceContext = {
@@ -81,6 +82,7 @@ type CloudLoggingEntry = {
   'logging.googleapis.com/spanId'?: string;
   'logging.googleapis.com/trace'?: string;
   'logging.googleapis.com/trace_sampled'?: boolean;
+  [key: string]: any;
 };
 
 const cloudLoggingSeverityMap: { [key: number]: CloudLoggingSeverity } = {
@@ -121,8 +123,17 @@ const createCloudLoggingReporter = (): LogRawStream => ({
     }
 
     if (err != null) {
-      const e = bunyan.stdSerializers.err(err);
+      if (err instanceof RequestError) {
+        entry.code = err.code;
+        if (err.response != null) {
+          entry.body = err.response.body;
+          entry.requestUrl = err.response.url;
+          entry.timings = err.response.timings;
+          entry.retries = err.response.retryCount;
+        }
+      }
 
+      const e = bunyan.stdSerializers.err(err);
       if (e?.stack != null) {
         entry.message = e.stack?.trim();
         entry.serviceContext = {
