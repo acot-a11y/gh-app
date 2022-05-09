@@ -169,7 +169,12 @@ export const createLogger = (trace?: TraceContext | null): Logger => {
 
   switch (process.env.NODE_ENV) {
     case 'production':
-      logger = logger.child({ trace });
+      logger = logger.child({
+        trace,
+        serializers: {
+          err: (input: unknown) => input,
+        },
+      });
       logger.addStream({
         type: 'raw',
         stream: createCloudLoggingReporter() as any,
