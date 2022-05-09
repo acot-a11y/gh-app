@@ -33,7 +33,7 @@ const formatMessage = (message: string) => {
   return message.trim().replace(/(?:\r\n|\r|\n)/g, '<br />');
 };
 
-const format = (meta: PrCommentMeta, summary: Summary) => {
+export const format = (meta: PrCommentMeta, summary: Summary) => {
   const symbols = {
     success: ':white_check_mark:',
     error: ':x:',
@@ -59,11 +59,13 @@ ${getMarkdownTable({
     ],
   },
   alignment: [Align.Left, Align.Left, Align.Left],
+  alignColumns: false,
 })}
 `;
 
   // Summary
-  body += `## Audit summary
+  if (summary.results.length > 0) {
+    body += `\n## Audit summary
 
 ${getMarkdownTable({
   table: {
@@ -89,7 +91,7 @@ ${getMarkdownTable({
       [
         '',
         '',
-        ms(summary.duration),
+        '',
         passCount(summary.passCount),
         errorCount(summary.errorCount),
         warningCount(summary.warningCount),
@@ -104,11 +106,13 @@ ${getMarkdownTable({
     Align.Right,
     Align.Right,
   ],
+  alignColumns: false,
 })}
 `;
+  }
 
   // Details
-  body += '\n## Audit details\n';
+  body += '\n## Audit details\n\n';
   if (summary.results.length === 0) {
     body += `:tada: All checks pass :tada:`;
   } else {
@@ -129,44 +133,79 @@ ${getMarkdownTable({
         `${symbols.warning} ${result.warningCount}`,
       ].join(' ');
 
+      const path = result.url.replace(meta.origin, '');
+
       lines.push(`<details>
-<summary><a href="${result.url}">${result.url}</a> - ${short}</summary>
+<summary><a href="${result.url}">${path}</a> - ${short}</summary>
 
 ${getMarkdownTable({
   table: {
     head: ['', 'Rule', 'Details'],
-    body: result.results.reduce<string[][]>((acc, cur) => {
-      if (cur.status === 'pass') {
+    body: [
+      ...result.results.reduce<
+        Map<
+          string,
+          {
+            status: string;
+            rule: string;
+            message: string;
+            help: string;
+            selectors: string[];
+          }
+        >
+      >((acc, cur) => {
+        if (cur.status === 'pass') {
+          return acc;
+        }
+
+        const status = cur.status === 'error' ? symbols.error : symbols.warning;
+        const rule = cur.rule;
+        const message = formatMessage(cur.message);
+        const help = cur.help ? formatMessage(cur.help) : '';
+        const key = status + rule + message + help;
+
+        if (acc.has(key)) {
+          if (cur.selector) {
+            acc.get(key)!.selectors.push(cur.selector);
+          }
+        } else {
+          const selectors = cur.selector ? [cur.selector] : [];
+          acc.set(key, {
+            status,
+            rule,
+            message,
+            help,
+            selectors,
+          });
+        }
+
         return acc;
-      }
+      }, new Map()),
+    ].map(([, entry]) => {
+      const body = [entry.message];
 
-      const body = [formatMessage(`${cur.message}`)];
-
-      if (cur.selector || cur.help) {
+      if (entry.selectors.length > 0 || entry.help) {
         body.push(`<br />`);
       }
-      if (cur.selector) {
-        body.push(`<br />at \`${cur.selector}\``);
-      }
-      if (cur.help) {
-        body.push(`<br />see ${formatMessage(cur.help)}`);
+
+      entry.selectors.forEach((selector) => {
+        body.push(`<br />at \`${selector}\``);
+      });
+
+      if (entry.help) {
+        body.push(`<br />see ${entry.help}`);
       }
 
-      acc.push([
-        cur.status === 'error' ? symbols.error : symbols.warning,
-        `\`${cur.rule}\``,
-        body.join(''),
-      ]);
-
-      return acc;
-    }, []),
+      return [entry.status, `\`${entry.rule}\``, body.join('')];
+    }),
   },
   alignment: [Align.Center, Align.Left, Align.Left],
+  alignColumns: false,
 })}
 </details>`);
     });
 
-    body += lines.join('\n');
+    body += lines.join('\n\n');
   }
 
   // Footer
