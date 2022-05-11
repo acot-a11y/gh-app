@@ -45,7 +45,7 @@
     "@acot/factory": "0.0.16",
     "@acot/gh-app-types": "workspace:*",
     "@acot/tsconfig": "0.1.0",
-    "@acot/types": "0.0.16",
+    "@acot/types": "0.0.18",
     "@types/bunyan-format": "0.2.4",
     "@types/jest": "27.4.0",
     "@types/jsonwebtoken": "8.5.8",
