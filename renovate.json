@@ -4,5 +4,11 @@
     ":semanticCommits",
     ":semanticCommitTypeAll(update)",
     ":semanticCommitScopeDisabled"
+  ],
+  "packageRules": [
+    {
+      "matchSourceUrlPrefixes": ["https://github.com/acot-a11y/acot"],
+      "groupName": "acot-a11y"
+    }
   ]
 }
