@@ -32,7 +32,7 @@
     "bunyan-format": "0.2.1",
     "dotenv": "10.0.0",
     "fastify": "3.29.0",
-    "fastify-cors": "6.0.2",
+    "fastify-cors": "6.1.0",
     "fastify-plugin": "3.0.1",
     "got": "11.8.3",
     "jsonwebtoken": "8.5.1",
