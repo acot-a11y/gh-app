@@ -42,7 +42,7 @@
     "typed-inject": "3.0.1"
   },
   "devDependencies": {
-    "@acot/factory": "0.0.16",
+    "@acot/factory": "0.0.18",
     "@acot/gh-app-types": "workspace:*",
     "@acot/tsconfig": "0.1.0",
     "@acot/types": "0.0.16",

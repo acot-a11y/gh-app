@@ -5,15 +5,15 @@ __metadata:
   version: 5
   cacheKey: 8
 
-"@acot/factory@npm:0.0.16":
-  version: 0.0.16
-  resolution: "@acot/factory@npm:0.0.16"
+"@acot/factory@npm:0.0.18":
+  version: 0.0.18
+  resolution: "@acot/factory@npm:0.0.18"
   dependencies:
-    "@acot/types": 0.0.16
+    "@acot/types": 0.0.18
     deepmerge: ^4.2.2
     is-plain-object: ^5.0.0
-    type-fest: ^0.20.2
-  checksum: 6daa27a8a772674b37bebd5488afe9b8b0ae1d16c2e98f86e5b761789ef00511f231b60b93f65953c569554416f8b6aa9022e49133086d1a92a394070ff39dd5
+    type-fest: ^2.12.2
+  checksum: 23f3c3d723f74fe0f212fe6227b3b3bab38da59a9089ba65e9322de97bf7c859ec78ac3a1ab75d803805eca28e081134d36fe654d07bfc96e0b6e2dfd481def4
   languageName: node
   linkType: hard
 
@@ -21,6 +21,13 @@ __metadata:
   version: 0.0.16
   resolution: "@acot/find-chrome@npm:0.0.16"
   checksum: 233fee8805bbd47ad5dd0f6f4bc18b7f410d657d7fc0e74240db0a7e25f6c37ddd67ccaf53648ebd34cf86721e63dcf143452ef7ff69b1d5a6a50c4c5b556e78
+  languageName: node
+  linkType: hard
+
+"@acot/find-chrome@npm:0.0.18":
+  version: 0.0.18
+  resolution: "@acot/find-chrome@npm:0.0.18"
+  checksum: daaf05ded8ec63fee3a6651cf3e807b7c0e5d89d9fd30c9a22fde0d7f5569864b3603f9a76896d5343dc7c303606dc23ef81e36854a2864c180f327a1f541d18
   languageName: node
   linkType: hard
 
@@ -61,6 +68,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@acot/schema-validator@npm:0.0.18":
+  version: 0.0.18
+  resolution: "@acot/schema-validator@npm:0.0.18"
+  dependencies:
+    "@types/json-schema": ^7.0.5
+    schema-utils: ^3.0.0
+  checksum: 40199c4b995a719bd16f60fd066f9e5e6f0e768bfc649385674eade106086cdbb78ff311c3957a6a3118269237439ea17291426079055bf9cf6f0711d6ccd080
+  languageName: node
+  linkType: hard
+
 "@acot/tsconfig@npm:0.1.0":
   version: 0.1.0
   resolution: "@acot/tsconfig@npm:0.1.0"
@@ -77,6 +94,18 @@ __metadata:
     puppeteer-core: ^13.5.1
     type-fest: ^0.20.2
   checksum: 7e1e5ca557400c9e8d5b2bbcd85ff141804ed07eebc2fca00f452bcdfd04993b179aaeeb686bb2f49e25c54d7e2e1ab74ee9dc301f254380a9c9f969a74e906a
+  languageName: node
+  linkType: hard
+
+"@acot/types@npm:0.0.18":
+  version: 0.0.18
+  resolution: "@acot/types@npm:0.0.18"
+  dependencies:
+    "@acot/find-chrome": 0.0.18
+    "@acot/schema-validator": 0.0.18
+    puppeteer-core: ^13.5.1
+    type-fest: ^2.12.2
+  checksum: b211e1ee2788a7be2557ccd804b8752bee7725af21c9bab05d0baa86f7fb734bff34437be97e582ef912e239c2ff7c71a668bc725b34df480dd3fe13de69d848
   languageName: node
   linkType: hard
 
@@ -7809,7 +7838,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "api@workspace:packages/api"
   dependencies:
-    "@acot/factory": 0.0.16
+    "@acot/factory": 0.0.18
     "@acot/gh-app-shared": "workspace:*"
     "@acot/gh-app-types": "workspace:*"
     "@acot/tsconfig": 0.1.0
@@ -22941,6 +22970,13 @@ __metadata:
   version: 0.8.1
   resolution: "type-fest@npm:0.8.1"
   checksum: d61c4b2eba24009033ae4500d7d818a94fd6d1b481a8111612ee141400d5f1db46f199c014766b9fa9b31a6a7374d96fc748c6d688a78a3ce5a33123839becb7
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^2.12.2":
+  version: 2.12.2
+  resolution: "type-fest@npm:2.12.2"
+  checksum: ee69676da1f69d2b14bbec28c7b95220a3221ab14093f54bde179c59e185a80470859553eada535ec35d8637a245c2f0efe9d7c99cc46a43f3b4c7ef64db7957
   languageName: node
   linkType: hard
 
