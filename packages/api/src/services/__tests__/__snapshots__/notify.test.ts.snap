@@ -9,6 +9,7 @@ exports[`NotifyService internal#format empty 1`] = `
 | **Core** | \`v0.0.0\` |
 | **Runner** | \`test v0.0.0\` |
 | **Origin** | http://localhost:3000 |
+| **URLs** | 0 |
 | **Duration** | 0ms |
 | **Commit** | abc12345 |
 
@@ -26,6 +27,7 @@ exports[`NotifyService internal#format mixed 1`] = `
 | **Core** | \`v0.0.0\` |
 | **Runner** | \`test v0.0.0\` |
 | **Origin** | http://localhost:3000 |
+| **URLs** | 6 |
 | **Duration** | 0ms |
 | **Commit** | abc12345 |
 

@@ -52,6 +52,7 @@ ${getMarkdownTable({
       ['**Core**', `\`v${meta.core.version}\``],
       ['**Runner**', `\`${meta.runner.name} v${meta.runner.version}\``],
       ['**Origin**', meta.origin],
+      ['**URLs**', `${summary.results.length}`],
       ['**Duration**', `${ms(summary.duration)}`],
       ['**Commit**', meta.commit],
     ],
