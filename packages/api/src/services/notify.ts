@@ -40,9 +40,7 @@ export const format = (meta: PrCommentMeta, summary: Summary) => {
     warning: ':warning:',
   };
 
-  const passCount = (n: number) => (n > 0 ? `${n}` : '-');
-  const errorCount = (n: number) => (n > 0 ? `${n}` : '-');
-  const warningCount = (n: number) => (n > 0 ? `${n}` : '-');
+  const count = (n: number) => (n > 0 ? `${n}` : '-');
 
   // Environment
   let body = `\n## Run details
@@ -83,18 +81,18 @@ ${getMarkdownTable({
           status,
           `\`${rule}\``,
           ms(result.duration),
-          passCount(result.passCount),
-          errorCount(result.errorCount),
-          warningCount(result.warningCount),
+          count(result.passCount),
+          count(result.errorCount),
+          count(result.warningCount),
         ];
       }),
       [
         '',
         '',
         '',
-        passCount(summary.passCount),
-        errorCount(summary.errorCount),
-        warningCount(summary.warningCount),
+        count(summary.passCount),
+        count(summary.errorCount),
+        count(summary.warningCount),
       ],
     ],
   },
