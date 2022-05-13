@@ -127,10 +127,13 @@ ${getMarkdownTable({
       }
 
       const short = [
-        `${symbols.success} ${result.passCount}`,
-        `${symbols.error} ${result.errorCount}`,
-        `${symbols.warning} ${result.warningCount}`,
-      ].join(' ');
+        [symbols.success, result.passCount],
+        [symbols.warning, result.warningCount],
+        [symbols.error, result.errorCount],
+      ]
+        .filter(([, n]) => n > 0)
+        .map(([s, n]) => `${s} ${n}`)
+        .join(' ');
 
       const path = result.url.replace(meta.origin, '');
 

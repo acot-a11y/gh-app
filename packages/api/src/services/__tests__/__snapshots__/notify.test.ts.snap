@@ -42,7 +42,7 @@ exports[`NotifyService internal#format mixed 1`] = `
 ## Audit details
 
 <details>
-<summary><a href=\\"http://localhost:3000/\\">/</a> - :white_check_mark: 2 :x: 2 :warning: 3</summary>
+<summary><a href=\\"http://localhost:3000/\\">/</a> - :white_check_mark: 2 :warning: 3 :x: 2</summary>
 
 |  | Rule | Details |
 | :-: | :-- | :-- |
@@ -51,7 +51,7 @@ exports[`NotifyService internal#format mixed 1`] = `
 </details>
 
 <details>
-<summary><a href=\\"http://localhost:3000/path/to\\">/path/to</a> - :white_check_mark: undefined :x: 4 :warning: undefined</summary>
+<summary><a href=\\"http://localhost:3000/path/to\\">/path/to</a> - :x: 4</summary>
 
 |  | Rule | Details |
 | :-: | :-- | :-- |
