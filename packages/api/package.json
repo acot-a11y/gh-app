@@ -34,7 +34,7 @@
     "fastify": "3.29.0",
     "fastify-cors": "6.0.2",
     "fastify-plugin": "3.0.1",
-    "got": "11.8.3",
+    "got": "12.6.0",
     "jsonwebtoken": "8.5.1",
     "markdown-table-ts": "1.0.3",
     "pretty-ms": "7.0.1",
