@@ -26,7 +26,7 @@
     "@google-cloud/datastore": "6.6.2",
     "@google-cloud/firestore": "5.0.2",
     "@octokit/rest": "18.12.0",
-    "@types/bunyan": "1.8.8",
+    "@types/bunyan": "1.8.11",
     "@types/safe-json-stringify": "1.1.2",
     "bunyan": "1.8.15",
     "bunyan-format": "0.2.1",
