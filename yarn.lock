@@ -6592,12 +6592,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/bunyan@npm:1.8.8":
-  version: 1.8.8
-  resolution: "@types/bunyan@npm:1.8.8"
+"@types/bunyan@npm:1.8.11":
+  version: 1.8.11
+  resolution: "@types/bunyan@npm:1.8.11"
   dependencies:
     "@types/node": "*"
-  checksum: b28966c13579b281ae75560d8c99ee4149348818cd4c4d6424afeee9fdab1039db2a0c06f1ab62fbf8c71f99dcebb70551bb45f2110d6a1fc3e3f891355b6b4b
+  checksum: 9c8bf737bc3ca7a7a5bd1ad1414145342025e2c1e18c246b4a48e1ac052267d9072b85e9dba94eef6c53facd298365fc9f0957d9f99286e0f04a2b2c030fe13a
   languageName: node
   linkType: hard
 
@@ -7887,7 +7887,7 @@ __metadata:
     "@google-cloud/datastore": 6.6.2
     "@google-cloud/firestore": 5.0.2
     "@octokit/rest": 18.12.0
-    "@types/bunyan": 1.8.8
+    "@types/bunyan": 1.8.11
     "@types/bunyan-format": 0.2.4
     "@types/jest": 27.4.0
     "@types/jsonwebtoken": 8.5.8
